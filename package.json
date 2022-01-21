@@ -2,7 +2,7 @@
   "name": "mern-blog",
   "version": "1.0.0",
   "description": "A Mern Stack app of blog with crud features",
-  "main": "backend/server.js",
+  "main": "server.js",
   "type": "module",
   "engines":{
     "node":"14.17.0",
