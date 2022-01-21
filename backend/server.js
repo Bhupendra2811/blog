@@ -15,18 +15,17 @@ app.use(bodyParser.json())
 app.use("/api/auth/",UserRoutes)
 app.use("/api/blog/",blogRoutes)
 
-app.use((err,req,res,next)=>{
-    const statusCode=res.statusCode===200?500:res.statusCode
-    res.status(statusCode);
-    const eror={message:err.message,stack:process.env.NODE_ENV==="Production"?null:err.stack}
-    res.json(eror)
-    
-})
 
+if(process.env.NODE_ENV =='production')
+{
+    app.use('/',express.static('frontend/build'))
 
-app.get('*',(req,res)=>{
+    app.get('*',(req,res)=>{
 
-    res.sendFile(path.resolve(__dirname,'frontend/build/index.html'))
-})
+        res.sendFile(path.resolve(__dirname,'frontend/build/index.html'))
+    })
+}
 
-app.listen(5000,()=>{console.log("Server running on http://localhost:5000 ");})
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => 'server running on port');
